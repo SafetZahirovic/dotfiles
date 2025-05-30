@@ -1,0 +1,74 @@
+ZSH_DISABLE_COMPFIX=true
+autoload -Uz compinit
+compinit -u
+
+export PATH=$PATH:/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/bin/
+export PATH=$HOME/dev/flutter/bin:$PATH
+# export PATH=$PATH:/usr/local/sbin
+# Handle Mac platforms
+CPU=$(uname -p)
+if [[ "$CPU" == "arm" ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+    export EDITOR=/opt/homebrew/bin/nano
+    alias nano=/opt/homebrew/bin/nano
+    alias oldbrew=/usr/local/bin/brew
+else
+    export PATH="/usr/local/bin:$PATH"
+    export EDITOR=/usr/local/bin/nano
+    alias nano=/usr/local/bin/nano
+fi
+
+# Load pyenv automatically by appending
+# the following to 
+# ~/.zprofile (for login shells)
+# and ~/.zshrc (for interactive shells) :
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+export PATH=/opt/homebrew/bin:$PATH
+
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+alias dcs="colima start"
+alias dcst="colima stop"
+alias home="cd ~/"
+alias docker-ka="docker rm -v -f $(docker ps -qa)"
+alias insecure-chrome="open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security"
+alias open-web-ui="DATA_DIR=~/.open-webui uvx --python 3.11 open-webui@latest serve"
+alias python='python3'
+
+PATH=~/.console-ninja/.bin:$PATH
+
+alias compose='docker-compose'
+
+# bun completions
+[ -s "/Users/safetzahirovic/.bun/_bun" ] && source "/Users/safetzahirovic/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+export DOCKER_HOST=unix://${HOME}/.colima/default/docker.sock
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
+
+export PATH="/opt/homebrew/opt/libxslt/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="${HOME}/.pyenv/shims:${PATH}"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+alias open-vim=vim /Users/work-safetzahirovic/.zshrc
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+. "$HOME/.local/bin/env"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/work-safetzahirovic/.lmstudio/bin"
+# End of LM Studio CLI section
+
+
